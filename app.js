@@ -5,7 +5,8 @@ const moment = require("moment");
 const rimraf = require("rimraf");
 const { JSDOM } = jsdom;
 
-const types = ['cat', 'dog', 'avengers', 'cute'];
+const types = ['cat', 'dog', 'avengers', 'cute', 'tom+and+jerry',
+  'Alvin+and+the+Chipmunks', 'minions'];
 const dist = './download';
 const domain = 'https://wall.alphacoders.com';
 
@@ -15,7 +16,7 @@ function getApiUrl(type, page) {
 }
 
 async function download(url, i) {
-  const fileName = moment().format('YYYY-MM-DD') + '---' + i;
+  const fileName = moment().format('YYYY-MM-DD HH:mm') + '---' + i;
 
   await axios({
     method: 'get',
@@ -68,8 +69,6 @@ function getPageNumber(htmlText) {
 }
 
 async function main() {
-  rimraf.sync(`${dist}/*`);
-
   const type = getRandom(types);
 
   // 先 curl 获取 page
@@ -80,11 +79,13 @@ async function main() {
   // 真正 curl 的地址
   url = getApiUrl(type, page);
   htmlText = await curl(url);
-  console.log('真正的地址', url);
+  console.log(moment().format('YYYY-MM-DD h:mm'), '--- 真正的地址', url);
   
   const imgSelector = '.thumb-container .boxgrid a';
   const urls = findAllUrls(htmlText, imgSelector);
 
+  rimraf.sync(`${dist}/*`);
+  
   for (let i = 0, len = urls.length; i < len; i++) {
     const realImgHtmlText = await curl(urls[i]);
     const realImg = findAllUrls(realImgHtmlText, '.main-content');
@@ -95,7 +96,7 @@ async function main() {
 
 main();
 
-// setInterval(main, 1000 * 60 * 60);
+setInterval(main, 1000 * 60 * 60);
 
 
 
