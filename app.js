@@ -79,7 +79,8 @@ async function main() {
   // 真正 curl 的地址
   url = getApiUrl(type, page);
   htmlText = await curl(url);
-  console.log(moment().format('YYYY-MM-DD h:mm'), '--- 真正的地址', url);
+  
+  console.log(moment().format('YYYY-MM-DD HH:mm'), '--- 真正的地址', url);
   
   const imgSelector = '.thumb-container .boxgrid a';
   const urls = findAllUrls(htmlText, imgSelector);
