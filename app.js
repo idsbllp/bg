@@ -10,8 +10,14 @@ const types = ['cat', 'dog', 'avengers', 'cute', 'tom+and+jerry',
 const dist = './download';
 const domain = 'https://wall.alphacoders.com';
 
+const log = console.log;
+
+console.log = function(...args) {
+  log.call(console, moment().format('YYYY-MM-DD HH:mm'), '---', ...args);
+}
+
 // https://wall.alphacoders.com/by_category.php?id=9&name=Dark+Wallpapers
-function getApiUrl(type, page) {
+function getApiUrl(type, page = 1) {
   return `${domain}/search.php?search=${type}&page=${page}`
 }
 
@@ -80,7 +86,7 @@ async function main() {
   url = getApiUrl(type, page);
   htmlText = await curl(url);
   
-  console.log(moment().format('YYYY-MM-DD HH:mm'), '--- 真正的地址', url);
+  console.log('真正的curl地址', url);
   
   const imgSelector = '.thumb-container .boxgrid a';
   const urls = findAllUrls(htmlText, imgSelector);
