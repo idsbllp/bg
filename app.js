@@ -10,8 +10,10 @@ const types = ['cat', 'dog', 'avengers', 'cute', 'tom+and+jerry',
 const dist = './download';
 const domain = 'https://wall.alphacoders.com';
 
-const log = console.log;
+const  hour = 1000 * 60 * 60; // 一个小时
+const interval = hour * 2;
 
+const log = console.log;
 console.log = function(...args) {
   log.call(console, moment().format('YYYY-MM-DD HH:mm'), '---', ...args);
 }
@@ -103,7 +105,7 @@ async function main() {
 
 main();
 
-setInterval(main, 1000 * 60 * 60);
+setInterval(main, interval);
 
 
 
