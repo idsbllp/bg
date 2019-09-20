@@ -1,13 +1,13 @@
 const fs = require('fs');
 const axios = require('axios');
-const jsdom = require("jsdom");
+const { JSDOM } = require("jsdom");
 const moment = require("moment");
 const rimraf = require("rimraf");
-const { JSDOM } = jsdom;
 
 const types = ['cat', 'dog', 'avengers', 'cute', 'tom+and+jerry',
   'Alvin+and+the+Chipmunks', 'minions'];
 const dist = './download';
+const archive = './archive';
 const domain = 'https://wall.alphacoders.com';
 
 const  hour = 1000 * 60 * 60; // 一个小时
@@ -15,7 +15,7 @@ const interval = hour * 2;
 
 const log = console.log;
 console.log = function(...args) {
-  log.call(console, moment().format('YYYY-MM-DD HH:mm'), '---', ...args);
+  log.call(console, getTime(), '---', ...args);
 }
 
 // https://wall.alphacoders.com/by_category.php?id=9&name=Dark+Wallpapers
@@ -23,8 +23,14 @@ function getApiUrl(type, page = 1) {
   return `${domain}/search.php?search=${type}&page=${page}`
 }
 
+function getTime() {
+  return moment().format('YYYY-MM-DD HH.mm');
+}
+
+let folderName = getTime();
+
 async function download(url, i) {
-  const fileName = moment().format('YYYY-MM-DD HH:mm') + '---' + i;
+  const fileName = getTime() + '---' + i;
 
   await axios({
     method: 'get',
@@ -87,14 +93,21 @@ async function main() {
   // 真正 curl 的地址
   url = getApiUrl(type, page);
   htmlText = await curl(url);
-  
+
   console.log('真正的curl地址', url);
-  
+
   const imgSelector = '.thumb-container .boxgrid a';
   const urls = findAllUrls(htmlText, imgSelector);
 
-  rimraf.sync(`${dist}/*`);
-  
+  // rimraf.sync(`${dist}/*`);
+
+  if (fs.statSync(dist).isDirectory()) {
+    fs.renameSync(dist, `${archive}/${folderName}`);
+    fs.mkdirSync(dist);
+  }
+
+  folderName = getTime();
+
   for (let i = 0, len = urls.length; i < len; i++) {
     const realImgHtmlText = await curl(urls[i]);
     const realImg = findAllUrls(realImgHtmlText, '.main-content');
@@ -106,7 +119,5 @@ async function main() {
 main();
 
 setInterval(main, interval);
-
-
 
 // const apiPath = 'https://api.thecatapi.com/v1/images/search';
