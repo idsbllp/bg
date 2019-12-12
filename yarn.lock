@@ -368,6 +368,10 @@ lodash@^4.17.11:
   version "4.17.11"
   resolved "http://bnpm.byted.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
+lodash@^4.17.15:
+  version "4.17.15"
+  resolved "http://bnpm.byted.org/lodash/download/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+
 mime-db@~1.38.0:
   version "1.38.0"
   resolved "http://bnpm.byted.org/mime-db/download/mime-db-1.38.0.tgz#1a2aab16da9eb167b49c6e4df2d9c68d63d8e2ad"
@@ -391,6 +395,10 @@ moment@^2.24.0:
 ms@^2.1.1:
   version "2.1.1"
   resolved "http://bnpm.byted.org/ms/download/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
+
+ncp@^2.0.0:
+  version "2.0.0"
+  resolved "http://bnpm.byted.org/ncp/download/ncp-2.0.0.tgz#195a21d6c46e361d2fb1281ba38b91e9df7bdbb3"
 
 nwsapi@^2.0.9:
   version "2.1.1"

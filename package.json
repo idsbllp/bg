@@ -12,7 +12,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "jsdom": "^14.0.0",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "ncp": "^2.0.0",
     "rimraf": "^2.6.3"
   }
 }
