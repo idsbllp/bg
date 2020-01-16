@@ -89,8 +89,12 @@ function getPageNumber(htmlText) {
 function copyRandomCache() {
   const cacheDir = fs.readdirSync(archiveDir);
   const randomCacheDirName = getRandom(cacheDir).replace(/\s/, '\ ');
-  ncp(`${archiveDir}/${randomCacheDirName}`, downloadDir, noop);
-  console.log('获取缓存图片', `${archiveDir}/${randomCacheDirName}`);
+  const cachePictureDir = `${archiveDir}/${randomCacheDirName}`;
+  if (randomCacheDirName === '.DS_Store') {
+    return copyRandomCache();
+  }
+  ncp(cachePictureDir, downloadDir, noop);
+  console.log('获取缓存图片', cachePictureDir);
 }
 
 // 用于记录上一次的类型和页数
@@ -114,7 +118,7 @@ async function main() {
       if (Math.random() < 0.3) {
         return main();
       } else {
-        copyRandomCache();
+        return copyRandomCache();
       }
     }
 
@@ -127,8 +131,9 @@ async function main() {
     let downloadFiles = fs.readdirSync(downloadDir);
     downloadFiles = downloadFiles.filter(item => !(/(^|\/)\.[^\/\.]/g).test(item));
 
-    if (folderName && downloadFiles.length) {
-      fs.renameSync(downloadDir, `${archiveDir}/${folderName}`);
+    const targetDir = `${archiveDir}/${folderName}`;
+    if (folderName && !fs.existsSync(targetDir) && downloadFiles.length) {
+      fs.renameSync(downloadDir, targetDir);
     } else {
       rimraf.sync(downloadDir);
     }
