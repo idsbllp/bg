@@ -147,13 +147,15 @@ async function main() {
     const imgSelector = '.thumb-container .boxgrid a';
     const urls = findAllUrls(htmlText, imgSelector);
 
+    console.log('开始下载图片啦', url);
+
     for (let i = 0, len = urls.length; i < len; i++) {
       const realImgHtmlText = await curl(urls[i]);
       const realImg = findAllUrls(realImgHtmlText, '.main-content');
 
       await download(realImg[0], i);
     }
-    
+    console.log('下载完成啦', url);
   } catch (e) {
     console.log('main 函数报错: ', e);
     copyRandomCache();
