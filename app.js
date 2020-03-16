@@ -6,8 +6,10 @@ const { noop } = require('lodash');
 const moment = require('moment');
 const rimraf = require('rimraf');
 
-const types = ['cat', 'dog', 'avengers', 'cute', 'tom+and+jerry',
-  'Alvin+and+the+Chipmunks', 'minions'];
+const types = ['cat', 'dog', 'avengers', 'cute', 'tom and jerry',
+  'Alvin and the Chipmunks', 'minions', 'League Of Legends', 'Paladins',
+  'penguin', 'music dj', 'Music Gorillaz', 'Wreck-It Ralph', 'Hotel Transylvania',
+];
 const downloadDir = './download';
 const archiveDir = './archive';
 const domain = 'https://wall.alphacoders.com';
