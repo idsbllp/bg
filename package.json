@@ -1,0 +1,20 @@
+{
+  "name": "bg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "jsdom": "^16.4.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "ncp": "^2.0.0",
+    "rimraf": "^3.0.2"
+  }
+}
