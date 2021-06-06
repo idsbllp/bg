@@ -108,6 +108,9 @@ function copyRandomCache() {
   }
 
   const cachePictureDir = `${archiveDir}/${randomCacheDirName}`;
+  rimraf.sync(downloadDir);
+  checkDirIsExist(downloadDir);
+
   ncp(cachePictureDir, downloadDir, noop);
   log('获取缓存图片', cachePictureDir);
 }
