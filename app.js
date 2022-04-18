@@ -17,9 +17,8 @@ const domain = 'https://wall.alphacoders.com';
 const  hour = 1000 * 60 * 60; // 一个小时
 const interval = hour * 2;
 
-const log = console.log;
-console.log = function (...args) {
-  log.call(console, getTime(), '---', ...args);
+const log  = function (...args) {
+  console.log(getTime(), '---', ...args);
 };
 
 // https://wall.alphacoders.com/by_category.php?id=9&name=Dark+Wallpapers
